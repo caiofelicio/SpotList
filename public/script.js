@@ -1,5 +1,4 @@
 const buttons = document.getElementById("buttons");
-const button = document.getElementsByTagName("button");
 
 buttons.addEventListener("click", showImage);
 
