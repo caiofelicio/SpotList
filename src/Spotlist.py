@@ -1,4 +1,4 @@
-import sys, os, spotipy, webbrowser, ctypes, base64
+import sys, os, spotipy, webbrowser
 import spotipy.util as util
 from winsound import MessageBeep
 from win32api import MessageBox
@@ -46,24 +46,24 @@ class Spotify(QMainWindow, Ui_MainWindow):
     def run(self):
 
         # as credenciais do spotify contem 32 caracteres, logo esse if tem com objetivo impedir que possa
-        # ocorrer algum erro com relação a isso durante a execução do código. 
+        # ocorrer algum erro com relação a isso durante a execução do código.
 
         if len(self.client_id.text()) < 32 or len(self.secret_id.text()) < 32:
-            MessageBeep() 
+            MessageBeep()
             MessageBox(0, 'As informações inseridas estão incorretas!\nVerifique e tente novamente.', 'Aviso', MB_ICONEXCLAMATION)
             return
 
-        file = True if 'lista.txt' in os.listdir() else False 
-        
+        file = True if 'lista.txt' in os.listdir() else False
+
         if file:
             size = os.stat("lista.txt")
-        
+
             if size.st_size == 0:
                 MessageBeep()
                 MessageBox(0, 'A lista não pode estar vazia, tente novamente!', 'Aviso', MB_ICONEXCLAMATION)
                 return
         else:
-            MessageBeep()    
+            MessageBeep()
             MessageBox(0, 'Você deve criar uma lista com os nomes desejados antes de iniciar o processo!', 'Aviso', MB_ICONEXCLAMATION)
             return
 
@@ -89,8 +89,8 @@ class Spotify(QMainWindow, Ui_MainWindow):
     def add_musicas(self, username, scope, client_id, secret_id, uri):
         try:
             token = util.prompt_for_user_token(username=username,
-                                            scope=scope, 
-                                            client_id= client_id, 
+                                            scope=scope,
+                                            client_id= client_id,
                                             client_secret= secret_id,
                                             redirect_uri='http://localhost:8080/callback',
                                             cache_path='cache',
@@ -108,7 +108,7 @@ class Spotify(QMainWindow, Ui_MainWindow):
                 sp.trace = False
 
                 self.verify_Log()
-                
+
                 for artista in range(0, len(self.artistas)):
                     result = sp.search(self.artistas[artista], limit=int(self.number_of_music.text()))
                     for i, j in enumerate(result['tracks']['items']):
@@ -116,13 +116,13 @@ class Spotify(QMainWindow, Ui_MainWindow):
                             musicas[j["id"]] = j["name"]
                             with open('logs/log-spotlist.txt', 'a+') as file:
                                 file.write(f' {j["name"]} de {j["artists"][0]["name"]} foi adicionada a playlist\n')
-                
-                
+
+
                 [tracks.append(k.strip('"')) for k in musicas.keys()]
-                
+
                 if self.aleatorio.isChecked():
                     shuffle(tracks)
-                            
+
                 while tracks:
                     try:
                         result = sp.user_playlist_add_tracks(username, uri, tracks[:1])
@@ -131,7 +131,7 @@ class Spotify(QMainWindow, Ui_MainWindow):
                     tracks = tracks[1:]
 
                 self.sendNotification(title='Processo concluído', msg='A playlist foi criada, o aplicativo já pode ser encerrado!')
-    
+
     def sendNotification(self, title=str, msg=str):
         notification = Notify(default_notification_application_name="                SpotList")
         notification.title = title
@@ -146,9 +146,9 @@ class Spotify(QMainWindow, Ui_MainWindow):
             file.write(48 * '-' + '\n')
             file.write('\t[LOG CRIADO EM {}]\n'.format(date))
             file.write(48 * '-' + '\n\n')
-        
 
-    
+
+
 
 if __name__ == '__main__':
     if sys.platform == 'win32':
@@ -172,7 +172,7 @@ if __name__ == '__main__':
                 if spotify.save_Credentials.isChecked() and len(spotify.client_id.text()) == len(spotify.secret_id.text()) == 32 :
                     with open('.data', 'w') as file:
                         file.write(spotify.client_id.text() + "\n")
-                        file.write(spotify.secret_id.text() + "\n") 
+                        file.write(spotify.secret_id.text() + "\n")
                         if spotify.username.text() != '':
                             file.write(spotify.username.text())
-                    
+
