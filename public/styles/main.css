@@ -1,0 +1,27 @@
+:root {
+    font-size: 62.5%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: 0;
+}
+
+html, 
+body {
+    height: 25vh;
+}
+
+body {
+    background: #F0F0F7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body, 
+button {
+    font: 100 1.6rem Roboto;
+}

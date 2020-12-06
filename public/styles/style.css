@@ -1,0 +1,69 @@
+#container { 
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#container #image { 
+    height: 10rem;
+    width: 100%;
+}
+
+#container #image img {
+    margin-top: 1rem;
+    border: solid 1px black;
+    border-radius: 1.5rem;
+    height: 45rem;
+    width: 100rem;
+}
+
+#container #image .step {
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#container #image .step h2 {
+    margin-top: 1rem;
+}
+
+#container #buttons {
+    background: cyan;
+    display: flex;
+    justify-content: center;
+    margin: 3.2rem 0;
+    height: 0;
+}
+
+#container #buttons button {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 8rem;
+    height: 5rem;
+    margin-right: 1rem;
+    border: solid 1px orange;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-weight: 700;
+    font-family: "Nunito", sans-serif;
+    transition: all .2s;
+}
+
+#container #buttons button:hover {
+    background: orange;
+    color: white;
+}
+
+#container #buttons button:last-child {
+    margin: 0;
+}
+
+#text {
+    font-family: "Nunito", sans-serif;
+    font-size: 3rem;
+    font-style: italic;
+}
